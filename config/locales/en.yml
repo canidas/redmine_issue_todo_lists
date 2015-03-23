@@ -1,0 +1,15 @@
+en:
+  issue_todo_lists_title: To-do lists
+  issue_todo_lists_title_singular: To-do list
+  issue_todo_lists_title_column: Title
+  issue_todo_lists_created_by: Created by
+  issue_todo_lists_last_updated: Last updated
+  issue_todo_lists_last_updated_by: Last updated by
+  issue_todo_lists_last_updated_by_only: by
+  issue_todo_lists_new: Add new list
+  issue_todo_lists_new_success: To-do list was successfully created
+  issue_todo_lists_show: "To-do list #%{id}"
+  issue_todo_lists_add_issue: Add issue
+  issue_todo_lists_edit: Edit To-do list settings
+  issue_todo_lists_edit_success: To-do list was successfully updated
+  issue_todo_lists_destroy_success: To-list was successfully deleted

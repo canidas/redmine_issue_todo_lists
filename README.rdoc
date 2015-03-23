@@ -1,0 +1,24 @@
+= Redmine Issue To-Do Lists Plugin
+
+This plugin allows to create individual to-do lists per project with the ability to add issues and order them manually, no matter what issue priority these issues have.
+
+== Features
+
+* Create to-do lists per project
+* Add individual issues per to-do list (also cross project possible)
+* Order these issues per drag and drop
+* Autocomplete for issues (as with issue relations)
+
+== Installation
+
+* Read the Redmine plugin installation wiki (http://www.redmine.org/wiki/redmine/Plugins)
+* Make sure this plugin is installed as /plugins/issue_todo_lists
+* Run the migration of plugins: rake redmine:plugins:migrate
+* Restart your Redmine application server
+* Login and configure rights and roles for this plugin
+* Go to corresponding project settings and active project module
+* Click To-do list in the project menu
+
+== License
+
+GPLv2

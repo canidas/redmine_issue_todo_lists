@@ -1,0 +1,18 @@
+<% @todo_list_items.each do |item|%>
+  <tr id="issue-todo-list-item-<%= item.id %>" class="<%= cycle 'odd', 'even' %>">
+    <% @issue_query.columns.each do |column| %>
+      <td><%= column_content(column, item.issue) %></td>
+    <% end %>
+    <% if User.current.allowed_to?(:remove_issue_todo_list_items, @project) %>
+      <td>
+        <%= link_to image_tag('link_break.png'),
+                    project_issue_todo_list_item_path(@project, @todo_list, item),
+                    :remote => true,
+                    :method => :delete,
+                    :data => {:confirm => l(:text_are_you_sure)},
+                    :title => l(:label_relation_delete)
+        %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>

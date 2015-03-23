@@ -1,0 +1,15 @@
+<%= error_messages_for 'todo_list' %>
+<% if get_route_for_localize == 'new' %>
+  <% html_title(l(:issue_todo_lists_new)) %>
+  <h2><%= l(:issue_todo_lists_new) %></h2>
+<% else %>
+  <% html_title(l(:issue_todo_lists_edit)) %>
+  <h2><%= l(:issue_todo_lists_edit) %></h2>
+<% end %>
+<div class="box tabular">
+  <%= labelled_form_for [@project, @todo_list] do |f| %>
+    <p><%= f.text_field :title, :required => true, :size => 60 %></p>
+    <p><%= f.text_area :description, :rows => 8, :class => 'wiki-edit' %></p>
+    <%= submit_tag params[:action] == 'edit' ? l(:button_save) : l(:button_create) %>
+  <% end %>
+</div>

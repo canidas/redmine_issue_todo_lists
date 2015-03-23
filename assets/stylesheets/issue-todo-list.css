@@ -1,0 +1,13 @@
+#issue-todo-list-table.sortable td {
+    cursor: move;
+}
+
+#show-right-box p {
+    margin: 0;
+}
+
+.issue-todo-list-drop {
+    height: 23px;
+    width: 100%;
+    border: 1px solid #000;
+}

@@ -1,0 +1,15 @@
+de:
+  issue_todo_lists_title: To-do-Listen
+  issue_todo_lists_title_singular: To-do-Liste
+  issue_todo_lists_title_column: Titel
+  issue_todo_lists_created_by: Ersteller
+  issue_todo_lists_last_updated: Letzte Aktualisierung
+  issue_todo_lists_last_updated_by: Aktualisiert von
+  issue_todo_lists_last_updated_by_only: von
+  issue_todo_lists_new: Neue To-do-Liste hinzufügen
+  issue_todo_lists_new_success: To-do-Liste wurde erfolgreich erstellt
+  issue_todo_lists_show: "To-do-Liste #%{id}"
+  issue_todo_lists_add_issue: Ticket hinzufügen
+  issue_todo_lists_edit: To-do-Listen-Einstellungen bearbeiten
+  issue_todo_lists_edit_success: To-do-Liste wurde erfolgreich aktualisiert
+  issue_todo_lists_destroy_success: To-do-Liste wurde erfolgreich gelöscht
