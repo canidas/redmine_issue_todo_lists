@@ -1,7 +1,7 @@
 class CreateTodoLists < ActiveRecord::Migration
   def change
     create_table :issue_todo_lists do |t|
-      t.integer :project_identifier
+      t.string :project_identifier
       t.string :title
       t.text :description
       t.integer :created_by
