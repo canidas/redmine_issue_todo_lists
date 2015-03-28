@@ -2,7 +2,7 @@ Redmine::Plugin.register :issue_todo_lists do
   name 'Issue To-do Lists Plugin'
   author 'Den'
   description 'Organize issues in to-do lists by manually ordering their priority'
-  version '0.0.1'
+  version '1.0.1'
   url 'https://github.com/Canidas/redmine-issue-todo-lists'
   author_url 'http://den.cx'
 
