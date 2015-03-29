@@ -12,8 +12,7 @@ This plugin allows to create individual to-do lists per project with the ability
 
 == Installation
 
-* Read the Redmine plugin installation wiki (http://www.redmine.org/wiki/redmine/Plugins)
-* Make sure this plugin is installed as <tt>/plugins/issue_todo_lists</tt>, <b>NOT</b> <tt>/plugins/redmine-issue-todo-lists</tt>
+* Read the Redmine plugin installation wiki: http://www.redmine.org/wiki/redmine/Plugins
 * Run the migration of plugins: <tt>rake redmine:plugins:migrate RAILS_ENV=production</tt>
 * Restart Redmine
 * Login and configure rights and roles for this plugin
