@@ -2,6 +2,12 @@
 
 This plugin allows to create individual to-do lists per project with the ability to add issues and order them manually, no matter what issue priority these issues have.
 
+<b>Attention!</b> The plugin directory has been renamed from <tt>issue_todo_lists</tt> to <tt>redmine_issue_todo_lists</tt>. You have to rename plugin directory when updating!
+
+== Compatibility
+
+* Plugin is compatible with Redmine 2.6. Currently the plugin <b>doesn't work</b> with Redmine 3.
+
 == Features
 
 * Create to-do lists per project
