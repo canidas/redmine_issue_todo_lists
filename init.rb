@@ -1,8 +1,10 @@
+require 'redmine_issue_todo_lists/issue_patch'
+
 Redmine::Plugin.register :redmine_issue_todo_lists do
   name 'Issue To-do Lists Plugin'
   author 'Den'
   description 'Organize issues in to-do lists by manually ordering their priority'
-  version '1.0.1'
+  version '1.1.0'
   url 'https://github.com/Canidas/redmine_issue_todo_lists'
   author_url 'http://den.cx'
 
@@ -17,4 +19,10 @@ Redmine::Plugin.register :redmine_issue_todo_lists do
   end
 
   menu :project_menu, :issue_todo_lists, { :controller => 'issue_todo_lists', :action => 'index' }, :caption => :issue_todo_lists_title, :param => :project_id, :after => :activity
+
+  Rails.configuration.to_prepare do
+    unless Issue.included_modules.include? RedmineIssueTodoLists::IssuePatch
+      Issue.send(:include, RedmineIssueTodoLists::IssuePatch)
+    end
+  end
 end

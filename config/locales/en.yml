@@ -13,3 +13,4 @@ en:
   issue_todo_lists_edit: Edit To-do list settings
   issue_todo_lists_edit_success: To-do list was successfully updated
   issue_todo_lists_destroy_success: To-list was successfully deleted
+  issue_todo_lists_remove_closed_issues: Remove closed issues

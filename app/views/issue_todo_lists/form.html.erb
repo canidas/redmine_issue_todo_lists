@@ -10,6 +10,7 @@
   <%= labelled_form_for [@project, @todo_list] do |f| %>
     <p><%= f.text_field :title, :required => true, :size => 60 %></p>
     <p><%= f.text_area :description, :rows => 8, :class => 'wiki-edit' %></p>
+    <p><%= f.check_box :remove_closed_issues, :label => l(:issue_todo_lists_remove_closed_issues) %></p>
     <%= submit_tag params[:action] == 'edit' ? l(:button_save) : l(:button_create) %>
   <% end %>
 </div>
