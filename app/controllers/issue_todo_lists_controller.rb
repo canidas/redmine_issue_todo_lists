@@ -4,7 +4,7 @@ class IssueTodoListsController < ApplicationController
   before_filter :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order]
 
   def index
-    @todo_lists = IssueTodoList.where(project_identifier: @project.identifier).order('id')
+    @todo_lists = IssueTodoList.where(project_id: @project.id).order('id')
   end
 
   def new
@@ -16,7 +16,7 @@ class IssueTodoListsController < ApplicationController
 
   def create
     @todo_list = IssueTodoList.new(params[:issue_todo_list])
-    @todo_list.project_identifier = @project.identifier
+    @todo_list.project_id = @project.id
     @todo_list.created_by = User.current
     if @todo_list.save
       respond_to do |format|

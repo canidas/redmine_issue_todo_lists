@@ -1,5 +1,5 @@
 class IssueTodoList < ActiveRecord::Base
-  belongs_to :project, :foreign_key => 'project_identifier'
+  belongs_to :project
   belongs_to :created_by, :class_name => 'User', :foreign_key => 'created_by'
   belongs_to :last_updated_by, :class_name => 'User', :foreign_key => 'last_updated_by'
   has_many :issue_todo_list_items, dependent: :destroy, :order => 'position ASC'
