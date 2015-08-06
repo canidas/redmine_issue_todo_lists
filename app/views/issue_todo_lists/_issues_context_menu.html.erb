@@ -1,0 +1,14 @@
+<% if todo_lists.any? -%>
+    <li class="folder">
+    <a href="#" class="submenu"><%= l(:issue_todo_lists_title) %></a>
+    <ul>
+      <% todo_lists.each do |todo_list| -%>
+        <li>
+          <%= link_to todo_list.title, # Use link_to as context_menu_link's selected disables href
+                      bulk_allocate_issues_project_issue_todo_list_path(todo_list.project, todo_list, :issue_ids => @issue_ids, :back_url => @back),
+                      :method => :post, :class => ('icon-checked' if @issue && todo_list.issues.include?(@issue)) %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>

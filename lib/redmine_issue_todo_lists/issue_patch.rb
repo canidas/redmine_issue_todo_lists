@@ -9,6 +9,7 @@ module RedmineIssueTodoLists
 
         after_save :remove_todo_list_allocations
         has_many :issue_todo_list_items, dependent: :destroy
+        has_many :issue_todo_lists, through: :issue_todo_list_items
       end
     end
 

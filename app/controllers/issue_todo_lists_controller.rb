@@ -1,7 +1,7 @@
 class IssueTodoListsController < ApplicationController
 
-  before_filter :find_project
-  before_filter :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order]
+  before_filter :find_project, :except => [:bulk_allocate_issues]
+  before_filter :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order, :bulk_allocate_issues]
 
   def index
     @todo_lists = IssueTodoList.where(project_id: @project.id).order('id')
@@ -77,6 +77,39 @@ class IssueTodoListsController < ApplicationController
         @todo_list = find_todo_list
       }
     end
+  end
+
+  def bulk_allocate_issues
+    params[:issue_ids].each do |issue_id|
+      issue = Issue.find(issue_id)
+      found_list = false
+      # Is issue already allocated to selected to-do list?
+      issue.issue_todo_lists.each do |todo_list|
+        if todo_list == @todo_list
+          found_list = todo_list
+          break
+        end
+      end
+      if found_list
+        # Delete item if only one issue is selected and issue is allocated to to-do list
+        if params[:issue_ids].count == 1
+          found_list.issue_todo_list_items.each do |item|
+            if item.issue == issue
+              item.destroy
+            end
+          end
+        end
+      else
+        # Allocate issue to to-do list
+        item = IssueTodoListItem.new
+        item.issue_todo_list = @todo_list
+        item.position = @todo_list.get_max_position
+        item.issue = issue
+        item.save
+      end
+    end
+
+    redirect_to params[:back_url]
   end
 
   private

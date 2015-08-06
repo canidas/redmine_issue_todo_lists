@@ -2,7 +2,7 @@
 
 This plugin allows to create individual to-do lists per project with the ability to add issues and order them manually, no matter what issue priority these issues have.
 
-<b>Attention!</b> The plugin directory has been renamed from <tt>issue_todo_lists</tt> to <tt>redmine_issue_todo_lists</tt>. You have to rename plugin directory when updating!
+<b>Attention!</b> The plugin folder has been renamed from <tt>issue_todo_lists</tt> to <tt>redmine_issue_todo_lists</tt>. You have to rename plugin folder when updating!
 
 == Compatibility
 
@@ -14,6 +14,7 @@ This plugin allows to create individual to-do lists per project with the ability
 * Add individual issues per to-do list (also cross project possible)
 * Order these issues per drag and drop
 * Autocomplete for issues (as with issue relations)
+* Add and remove issues to/from to-do list by context menu (own right)
 * To-do lists show all configured default columns displayed on the normal issue list
 * Remove closed issues from to-do list (configurable per to-do list)
 
