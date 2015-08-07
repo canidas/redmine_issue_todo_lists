@@ -36,12 +36,11 @@
 </div>
 <% if User.current.allowed_to?(:add_issue_todo_list_items, @project) %>
   <h3><%= l(:issue_todo_lists_add_issue) %></h3>
-  <%= form_for @item, {
-                      :as => :item, :remote => true,
-                      :url => project_issue_todo_list_items_path(@project, @todo_list),
-                      :method => :post,
-                      :html => {:id => 'new-item-form'}
-                  } do |f| %>
+  <%= form_for IssueTodoListItem.new, {
+                                        :as => :item, :remote => true,
+                                        :url => project_issue_todo_list_items_path(@project, @todo_list),
+                                        :html => {:id => 'new-item-form'}
+                                    } do |f| %>
     <div class="errors"></div>
     <%= l(:label_issue) %> #<%= f.text_field :issue_id, :size => 10 %>
     <%= javascript_tag "observeAutocompleteField('item_issue_id', '#{escape_javascript auto_complete_issues_path(:project_id => @project, :scope => (Setting.cross_project_issue_relations? ? 'all' : nil))}')" %>

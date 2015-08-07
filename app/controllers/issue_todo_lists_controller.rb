@@ -15,7 +15,7 @@ class IssueTodoListsController < ApplicationController
   end
 
   def create
-    @todo_list = IssueTodoList.new(params[:issue_todo_list])
+    @todo_list = IssueTodoList.new(issue_todo_list_params)
     @todo_list.project_id = @project.id
     @todo_list.created_by = User.current
     if @todo_list.save
@@ -45,7 +45,7 @@ class IssueTodoListsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @todo_list.update_attributes(params[:issue_todo_list])
+      if @todo_list.update_attributes(issue_todo_list_params)
         format.html { redirect_to project_issue_todo_list_path(@project, @todo_list), notice: l(:issue_todo_lists_edit_success) }
       else
         format.html { render 'form' }
@@ -124,5 +124,13 @@ class IssueTodoListsController < ApplicationController
     @todo_list = IssueTodoList.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def issue_todo_list_params
+    if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new('4.0.0')
+      params.require(:issue_todo_list).permit(:title, :description, :remove_closed_issues)
+    else
+      params[:issue_todo_list]
+    end
   end
 end

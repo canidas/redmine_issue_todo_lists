@@ -6,7 +6,7 @@ This plugin allows to create individual to-do lists per project with the ability
 
 == Compatibility
 
-* Plugin is compatible with Redmine 2.6. Currently the plugin <b>doesn't work</b> with Redmine 3.
+* Plugin is compatible with Redmine 2.6 and Redmine 3.1. Older versions were not tested but could work.
 
 == Features
 
