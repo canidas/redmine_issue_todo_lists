@@ -13,8 +13,8 @@ This plugin allows to create individual to-do lists per project with the ability
 * Create to-do lists per project
 * Add individual issues per to-do list (also cross project possible)
 * Order these issues per drag and drop
+* Add and remove issues to/from to-do list by context menu (even bulk adding possible)
 * Autocomplete for issues (as with issue relations)
-* Add and remove issues to/from to-do list by context menu (own right)
 * To-do lists show all configured default columns displayed on the normal issue list
 * Remove closed issues from to-do list (configurable per to-do list)
 
