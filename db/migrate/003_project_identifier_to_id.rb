@@ -16,6 +16,18 @@ class ProjectIdentifierToId < ActiveRecord::Migration
   end
 
   def down
-    raise ActiveRecord::IrreversibleMigration
+    add_column :issue_todo_lists, :project_identifier, :string, null: false, after: :id
+
+    # project_id => project_identifier
+    execute <<-SQL
+        UPDATE
+	          #{IssueTodoList.table_name} issue_todo_lists LEFT JOIN
+	          #{Project.table_name} projects ON
+		            projects.id = issue_todo_lists.project_id
+        SET
+	          issue_todo_lists.project_identifier = projects.identifier
+    SQL
+
+    remove_column :issue_todo_lists, :project_id
   end
 end
