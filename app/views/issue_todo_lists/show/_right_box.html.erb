@@ -1,8 +1,8 @@
 <p>
-  <%= l(:issue_todo_lists_created_by) %>: <%= link_to h(@todo_list.created_by), user_path(@todo_list.created_by) %>
+  <%= l(:issue_todo_lists_created_by) %>: <%= link_to_user(@todo_list.created_by, :format => :username) %>
   <br>
   <%= l(:issue_todo_lists_last_updated) %>:
   <%= format_object(@todo_list.last_updated) %>
   <%= l(:issue_todo_lists_last_updated_by_only) %>
-  <%= link_to h(@todo_list.last_updated_by), user_path(@todo_list.last_updated_by) if @todo_list.last_updated_by %>
+  <%= link_to_user(@todo_list.last_updated_by, :format => :username) if @todo_list.last_updated_by %>
 </p>

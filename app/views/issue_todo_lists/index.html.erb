@@ -19,9 +19,9 @@
       <tr class="<%= cycle 'odd', 'even' %>">
         <td><%= link_to todo_list.id, project_issue_todo_list_path(@project, todo_list) %></td>
         <td><%= link_to todo_list.title, project_issue_todo_list_path(@project, todo_list) %></td>
-        <td><%= link_to h(todo_list.created_by), user_path(todo_list.created_by) %></td>
+        <td><%= link_to_user(todo_list.created_by, :format => :username) %></td>
         <td><%= format_object(todo_list.last_updated) %></td>
-        <td><%= link_to h(todo_list.last_updated_by), user_path(todo_list.last_updated_by) if todo_list.last_updated_by %></td>
+        <td><%= link_to_user(todo_list.last_updated_by, :format => :username) if todo_list.last_updated_by %></td>
       </tr>
     <% end %>
     </tbody>
