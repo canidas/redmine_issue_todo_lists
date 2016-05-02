@@ -6,6 +6,7 @@ class IssueTodoListItem < ActiveRecord::Base
   validates_uniqueness_of :issue_id, :scope => :issue_todo_list_id
 
   before_save :force_updated
+  before_destroy :force_updated
 
   def force_updated
     todo_list = self.issue_todo_list
