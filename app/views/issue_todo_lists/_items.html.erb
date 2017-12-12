@@ -1,7 +1,7 @@
 <% @todo_list_items.each do |item|%>
   <tr id="issue-todo-list-item-<%= item.id %>" class="<%= cycle 'odd', 'even' %>">
     <% @issue_query.columns.each do |column| %>
-      <td><%= column_content(column, item.issue) %></td>
+      <td class="<%= column.name.to_s %>"><%= column_content(column, item.issue) %></td>
     <% end %>
     <% if User.current.allowed_to?(:remove_issue_todo_list_items, @project) %>
       <td>
