@@ -25,6 +25,7 @@ class IssueTodoListItemsController < ApplicationController
   def destroy
     @item = IssueTodoListItem.find(params[:id])
     @item.destroy
+    find_todo_list # Refresh last updated box
 
     respond_to do |format|
       format.js {
