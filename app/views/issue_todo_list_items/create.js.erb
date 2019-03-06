@@ -4,4 +4,5 @@ $('#show-right-box').html('<%= escape_javascript(render :partial => 'issue_todo_
 <% if @item.errors.empty? %>
   $('#item_issue_id').val('');
   $('#item_issue_id').focus();
+  $('#item_comment').val('');
 <% end %>

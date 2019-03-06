@@ -1,8 +1,13 @@
-<% @todo_list_items.each do |item|%>
+<% @todo_list_items.each do |item| %>
   <tr id="issue-todo-list-item-<%= item.id %>" class="<%= cycle 'odd', 'even' %>">
     <% @issue_query.columns.each do |column| %>
-      <td class="<%= column.name.to_s %>"><%= column_content(column, item.issue) %></td>
+      <% unless item.issue.nil? %>
+        <td class="<%= column.name.to_s %>"><%= column_content(column, item.issue) %></td>
+      <% end %>
     <% end %>
+    <td <%= item.issue.nil? ? "colspan=#{@issue_query.columns.count + 1}" : '' %>>
+      <%= item.comment %>
+    </td>
     <% if User.current.allowed_to?(:remove_issue_todo_list_items, @project) %>
       <td>
         <%= link_to image_tag('link_break.png'),

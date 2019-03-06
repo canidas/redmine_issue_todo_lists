@@ -7,10 +7,18 @@ class IssueTodoListItemsController < ApplicationController
     @item = IssueTodoListItem.new
     @item.issue_todo_list = @todo_list
     @item.position = @todo_list.get_max_position
+    @item.comment = params[:item][:comment]
 
     match = params[:item][:issue_id].to_s.strip.match(/^#?(\d+)$/)
-    if match
+    if match and match[1]
       @item.issue = Issue.visible.find_by_id(match[1].to_i)
+    end
+
+    if not params[:item][:issue_id].empty? and @item.issue.nil?
+        @item.errors.add(:base, l(:error_issue_not_found_in_project))
+    elsif @item.issue.nil? and @item.comment.empty?
+      @item.errors.add(:base, l(:issue_todo_lists_item_create_empty))
+    else
       @item.save
     end
 

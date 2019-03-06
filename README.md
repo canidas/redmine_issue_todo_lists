@@ -11,7 +11,7 @@ Link to Redmine plugin page: https://www.redmine.org/plugins/redmine_issue_todo_
 ## Features
 
 * Create to-do lists per project
-* Add individual issues per to-do list (also cross project possible)
+* Add individual issues with or without comments per to-do list (also cross project possible)
 * Order these issues per drag and drop
 * Add and remove issues to/from to-do list by context menu (even bulk adding possible)
 * Autocomplete for issues (as with issue relations)

@@ -14,3 +14,4 @@ de:
   issue_todo_lists_edit_success: To-do-Liste wurde erfolgreich aktualisiert
   issue_todo_lists_destroy_success: To-do-Liste wurde erfolgreich gelöscht
   issue_todo_lists_remove_closed_issues: Geschlossene Tickets entfernen
+  issue_todo_lists_item_create_empty: Beide Felder dürfen nicht leer sein

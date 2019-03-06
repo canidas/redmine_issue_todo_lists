@@ -2,8 +2,8 @@ class IssueTodoListItem < ActiveRecord::Base
   belongs_to :issue_todo_list
   belongs_to :issue
 
-  validates_presence_of :issue_todo_list, :issue
-  validates_uniqueness_of :issue_id, :scope => :issue_todo_list_id
+  validates_presence_of :issue_todo_list, :issue, :allow_nil => true
+  validates_uniqueness_of :issue_id, :scope => :issue_todo_list_id, :allow_nil => true
 
   before_save :force_updated
   before_destroy :force_updated

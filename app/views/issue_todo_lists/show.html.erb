@@ -25,6 +25,7 @@
         <th><%= column.caption %></th>
       <% end %>
       <% if User.current.allowed_to?(:remove_issue_todo_list_items, @project) %>
+        <th><%= l(:label_comment) %></th>
         <th></th>
       <% end %>
     </tr>
@@ -44,5 +45,8 @@
     <div class="errors"></div>
     <%= l(:label_issue) %> #<%= f.text_field :issue_id, :size => 10 %>
     <%= javascript_tag "observeAutocompleteField('item_issue_id', '#{escape_javascript auto_complete_issues_path(:project_id => @project, :scope => (Setting.cross_project_issue_relations? ? 'all' : nil))}')" %>
+    <%= l(:label_comment) %> <%= f.text_field :comment %>
+    <%# Hidden by CSS; Needed for submit by enter as this does not work anymore with more than one form field %>
+    <input type="submit">
   <% end %>
 <% end %>

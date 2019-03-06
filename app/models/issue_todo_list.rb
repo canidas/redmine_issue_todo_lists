@@ -16,7 +16,7 @@ class IssueTodoList < ActiveRecord::Base
   before_save :force_updated
 
   def get_max_position
-    max = IssueTodoListItem.where(issue_todo_list_id: self.id).maximum('position')
+    max = IssueTodoListItem.where(issue_todo_list_id: self.id).maximum(:position)
     max = 0 if max.nil?
     max + 1
   end
