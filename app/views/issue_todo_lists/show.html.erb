@@ -10,7 +10,7 @@
 </div>
 <h2><%= title %></h2>
 <div class="splitcontentleft">
-  <p><%= simple_format(@todo_list.description) %></p>
+  <p><%= textilizable(@todo_list, :description) %></p>
 </div>
 <div class="splitcontentright">
   <div class="box" id="show-right-box">
