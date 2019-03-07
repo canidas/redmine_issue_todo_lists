@@ -1,7 +1,7 @@
 class IssueTodoListsController < ApplicationController
 
-  before_filter :find_project, :except => [:bulk_allocate_issues]
-  before_filter :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order, :bulk_allocate_issues]
+  before_action :find_project, :except => [:bulk_allocate_issues]
+  before_action :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order, :bulk_allocate_issues]
 
   def index
     @todo_lists = IssueTodoList.where(project_id: @project.id).order('id')

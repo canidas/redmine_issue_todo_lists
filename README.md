@@ -6,7 +6,9 @@ Link to Redmine plugin page: https://www.redmine.org/plugins/redmine_issue_todo_
 
 ## Compatibility
 
-* Last tested with Redmine 3.4, should also work with 2.6 - 3.3
+* Version 1.3 for >= Redmine 4 **ONLY**
+* Version 1.2 for <= Redmine 3.4
+* Currently there's no difference between 1.2 and 1.3 except Redmine 4 compatibility
 
 ## Features
 

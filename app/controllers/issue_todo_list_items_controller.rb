@@ -1,7 +1,7 @@
 class IssueTodoListItemsController < ApplicationController
 
-  before_filter :find_project
-  before_filter :find_todo_list
+  before_action :find_project
+  before_action :find_todo_list
 
   def create
     @item = IssueTodoListItem.new
