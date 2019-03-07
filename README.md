@@ -12,24 +12,37 @@ Link to Redmine plugin page: https://www.redmine.org/plugins/redmine_issue_todo_
 
 * Create to-do lists per project
 * Add individual issues with or without comments per to-do list (also cross project possible)
-* Order these issues per drag and drop
+* Or create to-do lists with solely text items
+* Order these issues / items per drag and drop
 * Add and remove issues to/from to-do list by context menu (even bulk adding possible)
 * Autocomplete for issues (as with issue relations)
 * To-do lists show all configured default columns displayed on the normal issue list
 * Remove closed issues from to-do list automatically (configurable per to-do list)
 
-## Installation
+## Screenshots
+
+See [screenshots folder](https://github.com/canidas/redmine_issue_todo_lists/tree/master/screenshots)
+
+## Install
 
 * Read the Redmine plugin installation wiki: http://www.redmine.org/wiki/redmine/Plugins
-* Run the migration of plugins: `rake redmine:plugins:migrate RAILS_ENV=production`
+* Run the migration for database: `bundle exec rake redmine:plugins:migrate NAME=redmine_issue_todo_lists RAILS_ENV=production`
 * Restart Redmine
 * Login and configure rights and roles for this plugin
 * Go to corresponding project settings and active project module *Issue To-do lists*
 * Click *To-do lists* in project menu
 
-## Screenshots
+## Update
 
-See screenshots/ folder
+* Update plugin with Git or download sources manually
+* Run migration as described above
+* Restart Redmine
+
+## Uninstall
+
+* Run migration backwards: `bundle exec rake redmine:plugins:migrate NAME=redmine_issue_todo_lists VERSION=0 RAILS_ENV=production`
+* Remove plugin folder
+* Restart Redmine
 
 ## License
 
