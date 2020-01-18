@@ -1,7 +1,11 @@
 module IssueTodoListsHelper
   include SortHelper
   include QueriesHelper
-  include CustomFieldsHelper # for plugin extended_fields
+
+  # Prevent render error for column_content()
+  if Redmine::Plugin.installed?(:redmine_blocked_reason)
+    include IssuesBlockedReasonHelper
+  end
 
   def get_route_for_localize
     if ['new', 'create'].include? params[:action]
