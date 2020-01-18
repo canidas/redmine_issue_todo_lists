@@ -1,0 +1,17 @@
+zh:
+  issue_todo_lists_title: 待办
+  issue_todo_lists_title_singular: 待办列表
+  issue_todo_lists_title_column: 标题
+  issue_todo_lists_created_by: 创建人
+  issue_todo_lists_last_updated: 更新日期
+  issue_todo_lists_last_updated_by: 更新人
+  issue_todo_lists_last_updated_by_only: 由
+  issue_todo_lists_new: 新建列表
+  issue_todo_lists_new_success: 待办列表已创建
+  issue_todo_lists_show: "待办列表 #%{id}"
+  issue_todo_lists_add_issue: 添加问题
+  issue_todo_lists_edit: 编辑待办列表
+  issue_todo_lists_edit_success: 待办列表已更新
+  issue_todo_lists_destroy_success: 待办列表已删除
+  issue_todo_lists_remove_closed_issues: 移除已关闭的问题
+  issue_todo_lists_item_create_empty: Both fields cannot be blank
