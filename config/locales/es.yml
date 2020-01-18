@@ -1,0 +1,17 @@
+es:
+  issue_todo_lists_title: Listas de tareas
+  issue_todo_lists_title_singular: Lista de tareas
+  issue_todo_lists_title_column: Título
+  issue_todo_lists_created_by: Creado por
+  issue_todo_lists_last_updated: Última actualización
+  issue_todo_lists_last_updated_by: Última actualización por
+  issue_todo_lists_last_updated_by_only: por
+  issue_todo_lists_new: Añadir nueva lista
+  issue_todo_lists_new_success: Lista de tareas se ha creado correctamente
+  issue_todo_lists_show: "Lista de tareas #%{id}"
+  issue_todo_lists_add_issue: Añadir problema
+  issue_todo_lists_edit: Editar la configuración de la lista de tareas
+  issue_todo_lists_edit_success: Lista de tareas se ha actualizado correctamente
+  issue_todo_lists_destroy_success: La lista de tareas se eliminó correctamente
+  issue_todo_lists_remove_closed_issues: Eliminar problemas cerrados
+  issue_todo_lists_item_create_empty: Ambos campos no pueden estar en blanco
