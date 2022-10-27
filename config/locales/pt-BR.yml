@@ -1,0 +1,17 @@
+pt-BR:
+  issue_todo_lists_title: Lista de Prioridades
+  issue_todo_lists_title_singular: Lista de Prioridade
+  issue_todo_lists_title_column: Título
+  issue_todo_lists_created_by: Criado por
+  issue_todo_lists_last_updated: Última atualização
+  issue_todo_lists_last_updated_by: Atualizado por
+  issue_todo_lists_last_updated_by_only: por
+  issue_todo_lists_new: Nova lista de prioridades
+  issue_todo_lists_new_success: Lista de prioridades criada com sucesso
+  issue_todo_lists_show: "Lista de Prioridades #%{id}"
+  issue_todo_lists_add_issue: Adicionar Tarefa
+  issue_todo_lists_edit: Editar configurações da lista
+  issue_todo_lists_edit_success: Lista de Prioridades atualizada com sucesso
+  issue_todo_lists_destroy_success: Lista de Prioridades removida com sucesso
+  issue_todo_lists_remove_closed_issues: Remover tarefas concluídas
+  issue_todo_lists_item_create_empty: Os campos não podem ficar em branco
