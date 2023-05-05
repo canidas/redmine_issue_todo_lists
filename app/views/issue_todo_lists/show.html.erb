@@ -18,6 +18,7 @@
   </div>
 </div>
 <div class="autoscroll" style="clear: both">
+  <%= form_tag({}, :data => {:cm_url => issues_context_menu_path}) do -%>
   <table id="issue-todo-list-table" class="list <%= 'sortable' if User.current.allowed_to?(:order_issue_todo_list_items, @project) %>">
     <thead>
     <tr>
@@ -34,6 +35,8 @@
       <%= render :partial => 'items' %>
     </tbody>
   </table>
+  <% end %>
+  <%= context_menu %>
 </div>
 <% if User.current.allowed_to?(:add_issue_todo_list_items, @project) %>
   <h3><%= l(:issue_todo_lists_add_issue) %></h3>

@@ -1,5 +1,8 @@
 <% @todo_list_items.each do |item| %>
-  <tr id="issue-todo-list-item-<%= item.id %>" class="<%= cycle 'odd', 'even' %>">
+  <tr id="issue-todo-list-item-<%= item.id %>" class="hascontextmenu <%= cycle 'odd', 'even' %>">
+    <td class="checkbox">
+      <%= check_box_tag("ids[]", item.issue.id, false, :id => nil)  %>
+    </td>
     <% @issue_query.columns.each do |column| %>
       <% unless item.issue.nil? %>
         <td class="<%= column.name.to_s %>"><%= column_content(column, item.issue) %></td>
@@ -21,3 +24,4 @@
     <% end %>
   </tr>
 <% end %>
+
