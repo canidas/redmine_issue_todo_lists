@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_issue_todo_lists do
   name 'Issue To-do Lists Plugin'
   author 'Den'
   description 'Organize issues in to-do lists by manually ordering their priority'
-  version '1.3'
+  version '1.3.3'
   url 'https://github.com/canidas/redmine_issue_todo_lists'
   author_url 'mailto:dev@den.cx'
 
@@ -16,6 +16,7 @@ Redmine::Plugin.register :redmine_issue_todo_lists do
     permission :add_issue_todo_list_items, {:issue_todo_list_items => [:create]}
     permission :order_issue_todo_list_items, {:issue_todo_lists => [:update_item_order]}
     permission :remove_issue_todo_list_items, {:issue_todo_list_items => [:destroy]}
+    permission :update_issue_todo_list_items, {:issue_todo_list_items => [:update, :show, :edit]}
     permission :add_issue_todo_list_items_context_menu, {:issue_todo_lists => [:bulk_allocate_issues]}
   end
 

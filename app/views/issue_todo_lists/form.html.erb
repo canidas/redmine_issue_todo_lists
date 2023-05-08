@@ -6,11 +6,52 @@
   <% html_title(l(:issue_todo_lists_edit)) %>
   <h2><%= l(:issue_todo_lists_edit) %></h2>
 <% end %>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag "form.css", :plugin => :redmine_issue_todo_lists, :media => 'all' %>
+<% end %>
 <div class="box tabular">
   <%= labelled_form_for [@project, @todo_list] do |f| %>
     <p><%= f.text_field :title, :required => true, :size => 60 %></p>
     <p><%= f.text_area :description, :rows => 8, :class => 'wiki-edit' %></p>
     <p><%= f.check_box :remove_closed_issues, :label => l(:issue_todo_lists_remove_closed_issues) %></p>
+    <div>
+      <p><%= f.label l(:issue_todo_lists_included_columns) %></p>
+      <div id="issue_todo_lists_include_columns">
+        <table class="list">
+          <thead>
+            <tr>
+              <th><%= l(:field_column_names) %></th>
+              <th><%= l(:issue_todo_lists_included_columns_for_issue_item) %></th>
+              <th><%= l(:issue_todo_lists_included_columns_for_text_item) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @issue_query.available_columns.each do |column| %>
+                <tr>
+                  <td>
+                    <%= column.caption %>
+                  </td>
+                  <td>
+                    <%
+                      checked =
+                          @todo_list.included_columns.count > 0 ?
+                              @todo_list.included_columns.include?(column.name.to_s) :
+                              @issue_query.columns.include?(column) %>
+                    <%= f.check_box :included_columns, {multiple: true, label: '', checked: checked}, column.name, '' %>
+                  </td>
+                  <td>
+                    <%
+                      checked = @todo_list.included_fields.include?(column.name.to_s) %>
+                    <%= f.check_box :included_fields, {multiple: true, label: '', checked: checked}, column.name, '' %>
+                  </td>
+                </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <%= submit_tag params[:action] == 'edit' ? l(:button_save) : l(:button_create) %>
+    <%= link_to l(:button_cancel), { action: 'index'}, data: { confirm: l(:text_are_you_sure) }, :onclick => "$('#issue_todo_list_description').removeData('changed')" %>
   <% end %>
 </div>
+<%= wikitoolbar_for 'issue_todo_list_description', preview_text_path %>

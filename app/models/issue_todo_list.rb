@@ -9,6 +9,9 @@ class IssueTodoList < ActiveRecord::Base
   validates :title, presence: true
   before_save :force_updated
 
+  serialize :included_columns, Array
+  serialize :included_fields, Array
+
   def get_max_position
     max = IssueTodoListItem.where(issue_todo_list_id: self.id).maximum(:position)
     max = 0 if max.nil?

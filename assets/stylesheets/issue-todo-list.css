@@ -19,7 +19,7 @@
 }
 
 .controller-issue_todo_lists .new_item input[type=submit] {
-    display: none;
+    /* display: none; */
 }
 
 /* Same style as autocomplete */
