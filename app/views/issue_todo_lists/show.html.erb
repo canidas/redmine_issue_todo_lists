@@ -22,6 +22,10 @@
   <table id="issue-todo-list-table" class="list <%= 'sortable' if User.current.allowed_to?(:order_issue_todo_list_items, @project) %>">
     <thead>
     <tr>
+      <th class="checkbox hide-when-print">
+        <%= check_box_tag 'check_all', '', false, :class => 'toggle-selection',
+                          :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
+      </th>
       <% @issue_query.columns.each do |column| %>
         <th><%= column.caption %></th>
       <% end %>
