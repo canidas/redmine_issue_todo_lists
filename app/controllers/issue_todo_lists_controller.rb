@@ -130,6 +130,8 @@ class IssueTodoListsController < ApplicationController
 
   def issue_todo_list_params
     if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new('4.0.0')
+      params[:issue_todo_list][:included_columns] ||= []
+      params[:issue_todo_list][:included_fields] ||= []
       params.require(:issue_todo_list).permit(:title, :description, :remove_closed_issues, :included_columns => [], :included_fields => [])
     else
       params[:issue_todo_list]

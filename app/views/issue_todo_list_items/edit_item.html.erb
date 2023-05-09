@@ -18,7 +18,7 @@
             </p>
           <% end %>
         <% end %>
-      <%= submit_tag l(:button_save) %>
+      <%= submit_tag l(:button_save), :onclick => "$('#edit_item_comment').removeData('changed');" %>
       <%= link_to_function l(:button_cancel), "$('#edit_item_comment').removeData('changed'); $('#edit_item_comment_box').hide()" %>
     <% end %>
     <%= wikitoolbar_for 'edit_item_comment', preview_text_path %>
