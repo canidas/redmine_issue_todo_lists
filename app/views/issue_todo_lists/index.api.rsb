@@ -1,0 +1,15 @@
+@todo_lists.each do |todo_list|
+  api.todo_lists do
+    api.id todo_list.id
+    api.project todo_list.project
+    api.title todo_list.title
+    api.description todo_list.description
+    api.created_by todo_list.created_by
+    api.last_updated todo_list.last_updated
+    api.last_updated_by todo_list.last_updated_by
+    api.remove_closed_issues todo_list.remove_closed_issues
+    api.included_columns todo_list.included_columns
+    api.included_fields todo_list.included_fields
+  end
+end
+

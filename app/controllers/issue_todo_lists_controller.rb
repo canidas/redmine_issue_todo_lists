@@ -3,8 +3,13 @@ class IssueTodoListsController < ApplicationController
   before_action :find_project, :except => [:bulk_allocate_issues]
   before_action :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order, :bulk_allocate_issues]
 
+  accept_api_auth :index, :show
   def index
     @todo_lists = IssueTodoList.where(project_id: @project.id).order('id')
+    respond_to do |format|
+      format.api
+      format.html { render action: 'index', layout: false if request.xhr? }
+    end
   end
 
   def new
@@ -36,6 +41,10 @@ class IssueTodoListsController < ApplicationController
   def show
     @todo_list_items = @todo_list.issue_todo_list_items
     @issue_query = IssueQuery.new
+    respond_to do |format|
+      format.api
+      format.html { render action: 'show', layout: false if request.xhr? }
+    end
   end
 
   def edit
