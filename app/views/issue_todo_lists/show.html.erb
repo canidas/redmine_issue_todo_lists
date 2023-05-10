@@ -79,3 +79,6 @@
   </div>
 <% end %>
 <%= wikitoolbar_for 'new_item_comment', preview_text_path %>
+<% other_formats_links do |f| %>
+  <%= f.link_to 'CSV', :url => params.respond_to?(:to_unsafe_hash) ? params.to_unsafe_hash : params %>
+<% end %>

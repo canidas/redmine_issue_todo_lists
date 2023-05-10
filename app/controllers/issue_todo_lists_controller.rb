@@ -4,6 +4,9 @@ class IssueTodoListsController < ApplicationController
   before_action :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order, :bulk_allocate_issues]
 
   accept_api_auth :index, :show
+
+  include IssueTodoListsHelper
+
   def index
     @todo_lists = IssueTodoList.where(project_id: @project.id).order('id')
     respond_to do |format|
@@ -44,6 +47,7 @@ class IssueTodoListsController < ApplicationController
     respond_to do |format|
       format.api
       format.html { render action: 'show', layout: false if request.xhr? }
+      format.csv  { send_data(todo_list_items_to_csv(@todo_list_items), :type => 'text/csv; header=present', :filename => 'issue_todo_list_items.csv') }
     end
   end
 

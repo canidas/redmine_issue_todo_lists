@@ -38,4 +38,43 @@ module IssueTodoListsHelper
     todo_lists.keep_if { |todo_list| User.current.allowed_to?(:add_issue_todo_list_items_context_menu, todo_list.project) }
     todo_lists.to_a.sort! { |a,b| a.title <=> b.title }
   end
+
+  def todo_list_items_to_csv(collector)
+    decimal_separator = l(:general_csv_decimal_separator)
+    encoding = 'utf-8'
+    export = FCSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
+      headers = [ "id",
+                  l(:issue_todo_label_order, locale: :en),
+                  "#",
+                  l(:field_subject, locale: :en),
+                  l(:field_project, locale: :en),
+                  l(:field_tracker, locale: :en),
+                  l(:field_status, locale: :en),
+                  l(:field_priority, locale: :en),
+                  l(:field_start_date, locale: :en),
+                  l(:field_due_date, locale: :en),
+                  l(:field_total_estimated_hours, locale: :en),
+                  l(:field_comments, locale: :en)
+      ]
+      csv << headers.collect {|c| Redmine::CodesetUtil.from_utf8(c.to_s, encoding) }
+
+      collector.each_with_index do |data|
+        fields = [data.id,
+                  data.position,
+                  data.issue.id,
+                  data.issue.subject,
+                  data.issue.project.name,
+                  data.issue.tracker.name,
+                  data.issue.status.name,
+                  data.issue.priority.name,
+                  data.issue.start_date,
+                  data.issue.due_date,
+                  data.issue.total_estimated_hours,
+                  data.comment
+        ]
+        csv << fields.collect { |c| Redmine::CodesetUtil.from_utf8(c.to_s, encoding) }
+      end
+    end
+    export
+  end
 end
