@@ -54,6 +54,7 @@ class IssueTodoListItemsController < ApplicationController
     find_todo_list # Refresh last updated box
 
     respond_to do |format|
+      format.html { redirect_to :back }
       format.js {
         @todo_list_items = @todo_list.issue_todo_list_items
         @issue_query = IssueQuery.new
