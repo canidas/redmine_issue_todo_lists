@@ -39,42 +39,39 @@ module IssueTodoListsHelper
     todo_lists.to_a.sort! { |a,b| a.title <=> b.title }
   end
 
-  def todo_list_items_to_csv(collector)
-    decimal_separator = l(:general_csv_decimal_separator)
-    encoding = 'utf-8'
+  def todo_list_items_to_csv(todo_list, issue_query)
+    encoding = 'UTF-8'
+    bom = "\uFEFF" # Byte Order Mark (BOM)
     export = FCSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
-      headers = [ "id",
-                  l(:issue_todo_label_order, locale: :en),
-                  "#",
-                  l(:field_subject, locale: :en),
-                  l(:field_project, locale: :en),
-                  l(:field_tracker, locale: :en),
-                  l(:field_status, locale: :en),
-                  l(:field_priority, locale: :en),
-                  l(:field_start_date, locale: :en),
-                  l(:field_due_date, locale: :en),
-                  l(:field_total_estimated_hours, locale: :en),
-                  l(:field_comments, locale: :en)
-      ]
-      csv << headers.collect {|c| Redmine::CodesetUtil.from_utf8(c.to_s, encoding) }
+      if todo_list.included_columns.count > 0
+        issue_columns = issue_query.available_columns.select {|column| todo_list.included_columns.include?(column.name.to_s)}
+      else
+        issue_columns = issue_query.available_columns.select {|column| issue_query.columns.include?(column)}
+      end
 
-      collector.each_with_index do |data|
-        fields = [data.id,
-                  data.position,
-                  data.issue.id,
-                  data.issue.subject,
-                  data.issue.project.name,
-                  data.issue.tracker.name,
-                  data.issue.status.name,
-                  data.issue.priority.name,
-                  data.issue.start_date,
-                  data.issue.due_date,
-                  data.issue.total_estimated_hours,
-                  data.comment
-        ]
+      issue_columns.unshift(
+        QueryColumn.new(:position,
+                        :caption => :issue_todo_label_order)
+      )
+      issue_columns.push(
+        QueryColumn.new(:comments,
+                        :caption => :field_comments)
+      )
+
+      csv << issue_columns.map { |c| c.caption.to_s }
+
+      issue_columns = issue_columns.drop(1)
+      issue_columns.pop
+      todo_list.issue_todo_list_items.each_with_index do |item, itemIdx|
+        fields = []
+        fields.push(item.position)
+        issue_columns.each do |column|
+          fields.push(csv_content(column, item.issue))
+        end
+        fields.push(item.comment)
         csv << fields.collect { |c| Redmine::CodesetUtil.from_utf8(c.to_s, encoding) }
       end
     end
-    export
+    bom + export
   end
 end

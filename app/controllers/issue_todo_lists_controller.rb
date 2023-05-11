@@ -47,7 +47,7 @@ class IssueTodoListsController < ApplicationController
     respond_to do |format|
       format.api
       format.html { render action: 'show', layout: false if request.xhr? }
-      format.csv  { send_data(todo_list_items_to_csv(@todo_list_items), :type => 'text/csv; header=present', :filename => 'issue_todo_list_items.csv') }
+      format.csv  { send_data(todo_list_items_to_csv(@todo_list, @issue_query), :type => 'text/csv; header=present', :filename => 'issue_todo_list_items.csv') }
     end
   end
 
