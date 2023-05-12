@@ -25,6 +25,7 @@ Redmine::Plugin.register :redmine_issue_todo_lists do
   require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/hooks'
   require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/issue_patch'
   require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/project_patch'
+  require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/issue_query_patch'
 
   if Rails.configuration.respond_to?(:autoloader) && Rails.configuration.autoloader == :zeitwerk
     Rails.autoloaders.each { |loader| loader.ignore(File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists') }
@@ -33,10 +34,16 @@ Redmine::Plugin.register :redmine_issue_todo_lists do
   if Rails.version > '6.0' && Rails.autoloaders.zeitwerk_enabled?
     Project.send(:include, RedmineIssueTodoLists::ProjectPatch)
     Issue.send(:include, RedmineIssueTodoLists::IssuePatch)
+    unless IssueQuery.included_modules.include?(IssueTodoListsIssueQueryPatch)
+      IssueQuery.send(:prepend, IssueTodoListsIssueQueryPatch::InstanceMethods)
+    end
   else
     Rails.configuration.to_prepare do
       Project.send(:include, RedmineIssueTodoLists::ProjectPatch)
       Issue.send(:include, RedmineIssueTodoLists::IssuePatch)
+      unless IssueQuery.included_modules.include?(IssueTodoListsIssueQueryPatch)
+        IssueQuery.send(:prepend, IssueTodoListsIssueQueryPatch::InstanceMethods)
+      end
     end
   end
 end

@@ -6,23 +6,23 @@
         <% if @issue && todo_list.issues.include?(@issue) %>
           <% icon_class = 'icon icon-del' %>
           <% list_count = -1 %>
-          <% li_title = 'Unlist item' %>
+          <% li_title = todo_list.project.name + ' - ' + todo_list.title + ': unlist item' %>
         <% elsif @issue %>
           <% icon_class = 'icon icon-add' %>
           <% list_count = 1 %>
-          <% li_title = 'Add item' %>
+          <% li_title = todo_list.project.name + ' - ' + todo_list.title + ': add item' %>
         <% elsif @issue_ids && (@issue_ids - todo_list.issues.ids).empty? %>
           <% icon_class = 'icon icon-del' %>
           <% list_count = -(@issue_ids.count) %>
-          <% li_title = 'Unlist all items' %>
+          <% li_title = todo_list.project.name + ' - ' + todo_list.title + ': unlist all items' %>
         <% elsif @issue_ids && (@issue_ids & todo_list.issues.ids).empty? %>
           <% icon_class = 'icon icon-add' %>
           <% list_count = @issue_ids.count %>
-          <% li_title = 'Add all items' %>
+          <% li_title = todo_list.project.name + ' - ' + todo_list.title + ': add all items' %>
         <% else %>
           <% icon_class = 'icon icon-warning' %>
           <% list_count = (@issue_ids - todo_list.issues.ids).count %>
-          <% li_title = 'Add ' + list_count.to_s + ' items from ' + @issue_ids.count.to_s %>
+          <% li_title = todo_list.project.name + ' - ' + todo_list.title + ': add ' + list_count.to_s + ' items from ' + @issue_ids.count.to_s %>
         <% end %>
         <li title="<%= li_title %>">
           <%= link_to todo_list.title, # Use link_to as context_menu_link's selected disables href
