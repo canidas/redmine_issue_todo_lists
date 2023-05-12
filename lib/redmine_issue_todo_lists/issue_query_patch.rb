@@ -11,7 +11,7 @@ module IssueTodoListsIssueQueryPatch
 
     def issue_todo_lists_values
       return [] unless project
-      IssueTodoList.where(project_id: project.self_and_ancestors.ids).order('project_id', 'title').map { |s| [s.project.name.to_s + ': ' + s.title.to_s, s.id.to_s] }
+      IssueTodoList.where(project_id: project.self_and_ancestors.ids + project.self_and_descendants).order('project_id', 'title').map { |s| [s.project.name.to_s + ': ' + s.title.to_s, s.id.to_s] }
     end
 
     def sql_for_todo_lists_ids_field(field, operator, value)
