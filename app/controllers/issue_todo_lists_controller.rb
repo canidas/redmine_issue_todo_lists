@@ -106,8 +106,8 @@ class IssueTodoListsController < ApplicationController
         end
       end
       if found_list
-        # Delete item if only one issue is selected and issue is allocated to to-do list
-        if true || params[:issue_ids].count == 1
+        # Delete item if only all issues are to be deleted and issue is allocated to to-do list
+        if params[:issue_ids].count == -(params[:list_count].to_i)
           found_list.issue_todo_list_items.each do |item|
             if item.issue == issue
               item.destroy

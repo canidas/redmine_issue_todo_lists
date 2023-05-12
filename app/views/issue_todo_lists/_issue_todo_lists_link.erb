@@ -12,6 +12,8 @@
                         :method => :post,
                         :title => l(:label_relation_new)
             %>
+          <% elsif !todo_list.issues.include?(@issue) %>
+            <%= image_tag('link.png') %>
           <% end %>
           <% if User.current.allowed_to?(:remove_issue_todo_list_items, todo_list.project) && todo_list.issues.include?(@issue) %>
             <%= link_to image_tag('link_break.png'),
@@ -21,6 +23,8 @@
                         :data => {:confirm => l(:text_are_you_sure)},
                         :title => l(:label_relation_delete)
             %>
+          <% elsif todo_list.issues.include?(@issue) %>
+            <%= image_tag('link_break.png') %>
           <% end %>
         </li>
       <% end %>
