@@ -34,16 +34,12 @@ Redmine::Plugin.register :redmine_issue_todo_lists do
   if Rails.version > '6.0' && Rails.autoloaders.zeitwerk_enabled?
     Project.send(:include, RedmineIssueTodoLists::ProjectPatch)
     Issue.send(:include, RedmineIssueTodoLists::IssuePatch)
-    unless IssueQuery.included_modules.include?(IssueTodoListsIssueQueryPatch)
-      IssueQuery.send(:prepend, IssueTodoListsIssueQueryPatch::InstanceMethods)
-    end
+    IssueQuery.send(:prepend, IssueTodoLists::IssueQueryPatch::InstanceMethods)
   else
     Rails.configuration.to_prepare do
       Project.send(:include, RedmineIssueTodoLists::ProjectPatch)
       Issue.send(:include, RedmineIssueTodoLists::IssuePatch)
-      unless IssueQuery.included_modules.include?(IssueTodoListsIssueQueryPatch)
-        IssueQuery.send(:prepend, IssueTodoListsIssueQueryPatch::InstanceMethods)
-      end
+      IssueQuery.send(:prepend, IssueTodoLists::IssueQueryPatch::InstanceMethods)
     end
   end
 end
