@@ -1,5 +1,5 @@
 require_dependency 'issue_query'
-module IssueTodoLists
+module RedmineIssueTodoLists
   module IssueQueryPatch
     module InstanceMethods
       def initialize_available_filters
@@ -14,7 +14,7 @@ module IssueTodoLists
 
         @available_columns = super
         if User.current.allowed_to?(:view_issue_todo_lists, project)
-          @available_columns << QueryAssociationColumn.new(:issue_todo_list_titles, 'to_s', caption: :issue_todo_lists_title)
+          @available_columns << QueryAssociationColumn.new(:issue_todo_list_titles, :titles, caption: :issue_todo_lists_title)
         end
 
         @available_columns
@@ -65,6 +65,7 @@ end
 
 class Issue < ActiveRecord::Base
   def issue_todo_list_titles
-    IssueTodoList.joins(:issue_todo_list_items).where(issue_todo_list_items: { issue_id: id }).pluck(:title).join(', ')
+    issue_todo_lists = IssueTodoList.joins(:issue_todo_list_items).where(issue_todo_list_items: { issue_id: id })
+    IssueTodoListTitles.new(issue_todo_lists)
   end
 end
