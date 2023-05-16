@@ -17,7 +17,7 @@
     <%= render :partial => 'issue_todo_lists/show/right_box' %>
   </div>
 </div>
-<div class="autoscroll" style="clear: both">
+<div class="autoscroll">
   <%= form_tag({}, :data => {:cm_url => issues_context_menu_path}) do -%>
   <table id="issue-todo-list-table" class="list <%= 'sortable' if User.current.allowed_to?(:order_issue_todo_list_items, @project) %>">
     <thead>
@@ -37,10 +37,10 @@
       <% end %>
       <th><%= l(:label_comment) %></th>
       <% if User.current.allowed_to?(:update_issue_todo_list_items, @project) %>
-        <th></th>
+        <th class="buttons"></th>
       <% end %>
       <% if User.current.allowed_to?(:remove_issue_todo_list_items, @project) %>
-        <th></th>
+        <th class="buttons"></th>
       <% end %>
     </tr>
     </thead>
