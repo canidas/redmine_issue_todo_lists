@@ -22,4 +22,8 @@ class IssueTodoList < ActiveRecord::Base
     self.last_updated = current_time_from_proper_timezone
     self.last_updated_by = User.current
   end
+
+  def visible?(user = User.current)
+    user.allowed_to?(:view_issue_todo_lists, @project, global: true)
+  end
 end

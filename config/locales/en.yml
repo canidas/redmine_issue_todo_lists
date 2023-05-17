@@ -1,5 +1,6 @@
 en:
   issue_todo_lists_title: To-do lists
+  issue_todo_list_item_order: To-do list order
   issue_todo_lists_title_singular: To-do list
   issue_todo_lists_title_column: Title
   issue_todo_lists_created_by: Created by
