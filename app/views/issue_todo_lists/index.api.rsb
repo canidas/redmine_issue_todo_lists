@@ -1,0 +1,16 @@
+api.array :todo_lists do
+  @todo_lists.each do |todo_list|
+    api.todo_lists do
+      api.id todo_list.id
+      api.project(:id => todo_list.project.id, :name => todo_list.project.name) unless todo_list.project.nil?
+      api.title todo_list.title
+      api.description todo_list.description
+      api.created_by(:id => todo_list.created_by.id, :firstname => todo_list.created_by.firstname, :lastname => todo_list.created_by.lastname) unless todo_list.created_by.nil?
+      api.last_updated todo_list.last_updated
+      api.last_updated_by(:id => todo_list.last_updated_by.id, :firstname => todo_list.last_updated_by.firstname, :lastname => todo_list.last_updated_by.lastname) unless todo_list.last_updated_by.nil?
+      api.remove_closed_issues todo_list.remove_closed_issues
+      api.included_columns todo_list.included_columns unless todo_list.included_columns.length == 0
+      api.included_fields todo_list.included_fields unless todo_list.included_fields.length == 0
+    end
+  end
+end

@@ -5,7 +5,6 @@ module RedmineIssueTodoLists
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        unloadable
 
         after_save :remove_todo_list_allocations
         has_many :issue_todo_list_items, dependent: :destroy

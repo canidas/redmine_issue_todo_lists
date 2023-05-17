@@ -9,6 +9,9 @@ class IssueTodoList < ActiveRecord::Base
   validates :title, presence: true
   before_save :force_updated
 
+  serialize :included_columns, Array
+  serialize :included_fields, Array
+
   def get_max_position
     max = IssueTodoListItem.where(issue_todo_list_id: self.id).maximum(:position)
     max = 0 if max.nil?
@@ -18,5 +21,9 @@ class IssueTodoList < ActiveRecord::Base
   def force_updated
     self.last_updated = current_time_from_proper_timezone
     self.last_updated_by = User.current
+  end
+
+  def visible?(user = User.current)
+    user.allowed_to?(:view_issue_todo_lists, @project, global: true)
   end
 end

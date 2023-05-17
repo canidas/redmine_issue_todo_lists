@@ -8,9 +8,14 @@ class IssueTodoListItem < ActiveRecord::Base
   before_save :force_updated
   before_destroy :force_updated
 
+  serialize :data, Array
+
   def force_updated
     todo_list = self.issue_todo_list
     todo_list.force_updated
     todo_list.save
+  end
+  def visible?(user = User.current)
+    user.allowed_to?(:view_issue_todo_lists, @project, global: true)
   end
 end

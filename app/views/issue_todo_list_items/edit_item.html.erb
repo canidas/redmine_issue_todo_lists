@@ -1,0 +1,26 @@
+<% if User.current.allowed_to?(:update_issue_todo_list_items, @project) %>
+  <div id="edit_item_comment_box" class="box tabular">
+    <%= labelled_form_for [@project, @item], :as => :item, :remote => true, :url => project_issue_todo_list_item_path(@project, @todo_list, @item), :method => :put  do |f| %>
+      <p><%= f.text_area :comment, {rows: 8, id: 'edit_item_comment', class: 'wiki-edit'} %></p>
+        <% @todo_list.included_fields.each do |fieldName| %>
+          <% column = @issue_query.available_columns.find {|aColumn| aColumn.name.to_s === fieldName.to_s} %>
+          <% value = @item.data.find {|itemData| itemData[:field].to_s === fieldName.to_s} %>
+          <% value = value ? value[:value] : nil %>
+          <% if column %>
+            <p>
+              <%= label_tag column.name, column.caption %>
+              <%= hidden_field_tag 'item[data][][field]', column.name %>
+              <% if column.name.to_s.match(/date(_|\b)/) %>
+                <%= date_field_tag 'item[data][][value]', value %>
+              <% else %>
+                <%= text_field_tag 'item[data][][value]', value %>
+              <% end %>
+            </p>
+          <% end %>
+        <% end %>
+      <%= submit_tag l(:button_save), :onclick => "$('#edit_item_comment').removeData('changed');" %>
+      <%= link_to_function l(:button_cancel), "$('#edit_item_comment').removeData('changed'); $('#edit_item_comment_box').hide()" %>
+    <% end %>
+    <%= wikitoolbar_for 'edit_item_comment', preview_text_path %>
+  </div>
+<% end %>

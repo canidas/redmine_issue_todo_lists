@@ -20,6 +20,8 @@
             } else {
                 tr.addClass('even');
             }
+
+            tr.find('td.issue-todo-list-item-order').text(index + 1)
         });
     };
 
@@ -50,11 +52,17 @@
     $(document).ready(function() {
         $('#issue-todo-list-table.sortable > tbody').sortable({
             cancel: 'a',
-            //containment: 'parent',
-            cursor: 'move',
-            placeholder: 'issue-todo-list-drop',
+            itemSelector: 'tr',
+            placeholder: '<tr class="placeholder"/>',
+            axis: "y",
+            forcePlaceholderSize: true,
+            opacity: 0.5,
+            tolerance: "intersect",
             helper: fixWidth,
-            update: updateOrder
+            update: updateOrder,
+            start: function(e, ui){
+                ui.placeholder.height(ui.item.height());
+            }
         });
     });
 })(jQuery);

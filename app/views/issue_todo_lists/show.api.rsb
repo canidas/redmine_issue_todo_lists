@@ -1,0 +1,21 @@
+api.array :todo_list_items do
+  @todo_list_items.each do |todo_list_item|
+    api.todo_list_items do
+      api.id todo_list_item.id
+      api.position todo_list_item.position
+      api.issue(
+        :id => todo_list_item.issue.id,
+        :subject => todo_list_item.issue.subject,
+        :project => {:id => todo_list_item.issue.project.id, :project_name => todo_list_item.issue.project.name},
+        :tracker => {:id => todo_list_item.issue.tracker.id, :name => todo_list_item.issue.tracker.name},
+        :status => {:id => todo_list_item.issue.status.id, :name => todo_list_item.issue.status.name},
+        :priority => {:id => todo_list_item.issue.priority.id, :name => todo_list_item.issue.priority.name},
+        :start_date => todo_list_item.issue.start_date,
+        :due_date => todo_list_item.issue.due_date,
+        :total_estimated_hours => todo_list_item.issue.total_estimated_hours
+      )
+      api.comment todo_list_item.comment
+      api.data todo_list_item.data unless todo_list_item.data.length == 0
+    end
+  end
+end

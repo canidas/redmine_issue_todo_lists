@@ -1,0 +1,13 @@
+#issue_todo_lists_include_columns{
+    max-height: 300px;
+    overflow: auto;
+    padding-left: 180px;
+}
+
+#issue_todo_lists_include_columns table td{
+    text-align: center;
+}
+
+#issue_todo_lists_include_columns table tr > td:first-child{
+    text-align: left;
+}

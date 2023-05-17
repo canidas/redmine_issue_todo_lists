@@ -9,5 +9,7 @@ module RedmineIssueTodoLists
         :locals => context
       })
     end
+
+    render_on :view_issues_show_details_bottom, partial: 'issue_todo_lists/issue_todo_lists_link'
   end
 end

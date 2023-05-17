@@ -3,12 +3,21 @@ class IssueTodoListsController < ApplicationController
   before_action :find_project, :except => [:bulk_allocate_issues]
   before_action :find_todo_list, :only => [:show, :edit, :update, :destroy, :update_item_order, :bulk_allocate_issues]
 
+  accept_api_auth :index, :show
+
+  include IssueTodoListsHelper
+
   def index
     @todo_lists = IssueTodoList.where(project_id: @project.id).order('id')
+    respond_to do |format|
+      format.api
+      format.html { render action: 'index', layout: false if request.xhr? }
+    end
   end
 
   def new
     @todo_list = IssueTodoList.new
+    @issue_query = IssueQuery.new
     respond_to do |format|
       format.html { render 'form' }
     end
@@ -35,9 +44,15 @@ class IssueTodoListsController < ApplicationController
   def show
     @todo_list_items = @todo_list.issue_todo_list_items
     @issue_query = IssueQuery.new
+    respond_to do |format|
+      format.api
+      format.html { render action: 'show', layout: false if request.xhr? }
+      format.csv  { send_data(todo_list_items_to_csv(@todo_list, @issue_query), :type => 'text/csv; header=present', :filename => 'issue_todo_list_items.csv') }
+    end
   end
 
   def edit
+    @issue_query = IssueQuery.new
     respond_to do |format|
       format.html { render 'form' }
     end
@@ -91,8 +106,8 @@ class IssueTodoListsController < ApplicationController
         end
       end
       if found_list
-        # Delete item if only one issue is selected and issue is allocated to to-do list
-        if params[:issue_ids].count == 1
+        # Delete item if only all issues are to be deleted and issue is allocated to to-do list
+        if params[:issue_ids].count == -(params[:list_count].to_i)
           found_list.issue_todo_list_items.each do |item|
             if item.issue == issue
               item.destroy
@@ -128,7 +143,9 @@ class IssueTodoListsController < ApplicationController
 
   def issue_todo_list_params
     if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new('4.0.0')
-      params.require(:issue_todo_list).permit(:title, :description, :remove_closed_issues)
+      params[:issue_todo_list][:included_columns] ||= []
+      params[:issue_todo_list][:included_fields] ||= []
+      params.require(:issue_todo_list).permit(:title, :description, :remove_closed_issues, :included_columns => [], :included_fields => [])
     else
       params[:issue_todo_list]
     end

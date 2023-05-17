@@ -38,4 +38,40 @@ module IssueTodoListsHelper
     todo_lists.keep_if { |todo_list| User.current.allowed_to?(:add_issue_todo_list_items_context_menu, todo_list.project) }
     todo_lists.to_a.sort! { |a,b| a.title <=> b.title }
   end
+
+  def todo_list_items_to_csv(todo_list, issue_query)
+    encoding = 'UTF-8'
+    bom = "\uFEFF" # Byte Order Mark (BOM)
+    export = FCSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
+      if todo_list.included_columns.count > 0
+        issue_columns = issue_query.available_columns.select {|column| todo_list.included_columns.include?(column.name.to_s)}
+      else
+        issue_columns = issue_query.available_columns.select {|column| issue_query.columns.include?(column)}
+      end
+
+      issue_columns.unshift(
+        QueryColumn.new(:position,
+                        :caption => :issue_todo_label_order)
+      )
+      issue_columns.push(
+        QueryColumn.new(:comments,
+                        :caption => :field_comments)
+      )
+
+      csv << issue_columns.map { |c| c.caption.to_s }
+
+      issue_columns = issue_columns.drop(1)
+      issue_columns.pop
+      todo_list.issue_todo_list_items.each_with_index do |item, itemIdx|
+        fields = []
+        fields.push(item.position)
+        issue_columns.each do |column|
+          fields.push(csv_content(column, item.issue))
+        end
+        fields.push(item.comment)
+        csv << fields.collect { |c| Redmine::CodesetUtil.from_utf8(c.to_s, encoding) }
+      end
+    end
+    bom + export
+  end
 end
