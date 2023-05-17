@@ -17,11 +17,14 @@ module RedmineIssueTodoLists
           @available_columns << QueryAssociationColumn.new(
             :issue_todo_list_titles,
             :titles,
+            :sortable => "#{IssueTodoList.table_name}.id",
             :caption => :issue_todo_lists_title
           )
+
           @available_columns << QueryAssociationColumn.new(
             :issue_todo_list_item_orders,
             :positions,
+            :sortable => "#{IssueTodoListItem.table_name}.position",
             :caption => :issue_todo_list_item_order
           )
         end
@@ -74,6 +77,18 @@ module RedmineIssueTodoLists
         end
       end
 
+      def joins_for_order_statement(order_options)
+        joins = super(order_options) || []
+        if order_options.include?("#{IssueTodoListItem.table_name}.position")
+          joins << "LEFT OUTER JOIN #{IssueTodoListItem.table_name} ON #{IssueTodoListItem.table_name}.issue_id = #{Issue.table_name}.id"
+        end
+        if order_options.include?("#{IssueTodoList.table_name}.id")
+          joins << "LEFT OUTER JOIN #{IssueTodoListItem.table_name} ON #{IssueTodoListItem.table_name}.issue_id = #{Issue.table_name}.id"
+          joins << "LEFT OUTER JOIN #{IssueTodoList.table_name} ON #{IssueTodoList.table_name}.id = #{IssueTodoListItem.table_name}.issue_todo_list_id"
+        end
+        joins
+      end
+
     end
   end
 end
@@ -85,7 +100,7 @@ class Issue < ActiveRecord::Base
   end
 
   def issue_todo_list_item_orders
-    issue_todo_list_items = IssueTodoListItem.where(issue_id: id )
+    issue_todo_list_items = IssueTodoListItem.joins(:issue_todo_list).where(issue_id: id )
     IssueTodoListItemOrders.new(issue_todo_list_items)
   end
 end
