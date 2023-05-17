@@ -5,7 +5,7 @@
     <ul>
       <% todo_lists.each do |todo_list| %>
         <li>
-          <%= todo_list.project.name + ': ' + todo_list.title %>
+          <%= link_to todo_list.project.name + ': ' + todo_list.title, project_issue_todo_list_path(todo_list.project, todo_list) %>
           <% if User.current.allowed_to?(:add_issue_todo_list_items, todo_list.project) && !todo_list.issues.include?(@issue) %>
             <%= link_to image_tag('link.png'),
                         bulk_allocate_issues_project_issue_todo_list_path(todo_list.project, todo_list, :issue_ids => [@issue.id], :back_url => issue_path(@issue.id)),
