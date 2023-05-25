@@ -78,15 +78,18 @@ module RedmineIssueTodoLists
       end
 
       def joins_for_order_statement(order_options)
-        joins = super(order_options) || []
+        joins = [super]
+        new_joins = []
         if order_options.include?("#{IssueTodoListItem.table_name}.position")
-          joins << "LEFT OUTER JOIN #{IssueTodoListItem.table_name} ON #{IssueTodoListItem.table_name}.issue_id = #{Issue.table_name}.id"
+          new_joins << "LEFT OUTER JOIN #{IssueTodoListItem.table_name} ON #{IssueTodoListItem.table_name}.issue_id = #{Issue.table_name}.id"
         end
         if order_options.include?("#{IssueTodoList.table_name}.id")
-          joins << "LEFT OUTER JOIN #{IssueTodoListItem.table_name} ON #{IssueTodoListItem.table_name}.issue_id = #{Issue.table_name}.id"
-          joins << "LEFT OUTER JOIN #{IssueTodoList.table_name} ON #{IssueTodoList.table_name}.id = #{IssueTodoListItem.table_name}.issue_todo_list_id"
+          new_joins << "LEFT OUTER JOIN #{IssueTodoListItem.table_name} ON #{IssueTodoListItem.table_name}.issue_id = #{Issue.table_name}.id"
+          new_joins << "LEFT OUTER JOIN #{IssueTodoList.table_name} ON #{IssueTodoList.table_name}.id = #{IssueTodoListItem.table_name}.issue_todo_list_id"
         end
-        joins
+        joins = joins + new_joins.uniq if new_joins.any?
+        joins.compact!
+        joins.any? ? joins.join(' ') : nil
       end
 
     end
