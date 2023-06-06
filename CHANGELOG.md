@@ -1,8 +1,15 @@
 # CHANGELOG
+### 1.4.0
 
-### 1.3.3
-
-* add context menu
+* make compatible with Redmine 5
+* add full context menu
+* add sortable columns in picker
+* add CSV export
+* add sidebar in issue details
+* add filter
+* correct flicker in gui
+* add support for liquid
+* add method `issue.todolists_with_positions.items`
 
 ### 1.3.2
 
