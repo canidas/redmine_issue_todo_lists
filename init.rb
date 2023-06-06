@@ -26,6 +26,8 @@ Redmine::Plugin.register :redmine_issue_todo_lists do
   require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/issue_patch'
   require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/project_patch'
   require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/issue_query_patch'
+  require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/liquid/todo_lists_drop'
+  require File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists/issue_drop_patch.rb'
 
   if Rails.configuration.respond_to?(:autoloader) && Rails.configuration.autoloader == :zeitwerk
     Rails.autoloaders.each { |loader| loader.ignore(File.dirname(__FILE__) + '/lib/redmine_issue_todo_lists') }
