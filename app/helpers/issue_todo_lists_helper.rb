@@ -16,6 +16,13 @@ module IssueTodoListsHelper
     params[:action]
   end
 
+  def self.has_todo_lists_permission?(projects)
+    projects.each do |project|
+      return true if User.current.allowed_to?(:view_issue_todo_lists, project)
+    end
+    false
+  end
+
   def self.get_all_todo_lists_from_project_issues(issues)
     todo_lists = Set.new
     issues.each do |issue|
