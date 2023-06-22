@@ -1,6 +1,5 @@
 <% content_for :sidebar do %>
   <% todo_lists = IssueTodoList.where(project_id: @project.self_and_ancestors.ids).order('project_id', 'title') %>
-  <%= IssueTodoListsHelper.has_todo_lists_permission?(@project.self_and_ancestors) %>
   <% if IssueTodoListsHelper.has_todo_lists_permission?(@project.self_and_ancestors) && todo_lists.count > 0 -%>
     <h3><%= l(:issue_todo_lists_title) %></h3>
     <ul>
