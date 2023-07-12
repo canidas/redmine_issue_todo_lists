@@ -1,3 +1,5 @@
+Project moved to https://github.com/jcatrysse/redmine_issue_todo_lists2
+
 # Redmine Issue To-Do Lists Plugin
 
 This plugin allows creating of individual to-do lists per project with the ability to add issues and order them manually, no matter what issue priority these issues have.
